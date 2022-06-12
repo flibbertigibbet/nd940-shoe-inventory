@@ -13,5 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val shoeViewModel: ShoeViewModel by viewModels()
+
+        setSupportActionBar(findViewById(R.id.toolbar))
     }
 }
