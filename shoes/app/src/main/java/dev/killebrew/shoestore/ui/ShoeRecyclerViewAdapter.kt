@@ -1,18 +1,14 @@
 package dev.killebrew.shoestore.ui
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import dev.killebrew.shoestore.R
-
+import androidx.recyclerview.widget.RecyclerView
+import dev.killebrew.shoestore.databinding.FragmentShoesBinding
 import dev.killebrew.shoestore.ui.placeholder.PlaceholderContent.PlaceholderItem
-import dev.killebrew.shoestore.ui.databinding.FragmentShoeListBinding
 
 /**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
+ * [RecyclerView.Adapter] that can display a [.Shoe].
  */
 class ShoeRecyclerViewAdapter(
     private val values: List<PlaceholderItem>
@@ -21,7 +17,7 @@ class ShoeRecyclerViewAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
-            FragmentShoeListBinding.inflate(
+            FragmentShoesBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -38,7 +34,8 @@ class ShoeRecyclerViewAdapter(
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(binding: FragmentShoeListBinding) :
+
+    inner class ViewHolder(binding: FragmentShoesBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val idView: TextView = binding.itemNumber
         val contentView: TextView = binding.content
@@ -47,5 +44,4 @@ class ShoeRecyclerViewAdapter(
             return super.toString() + " '" + contentView.text + "'"
         }
     }
-
 }
