@@ -1,7 +1,8 @@
-package dev.killebrew.shoestore
+package dev.killebrew.shoestore.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import dev.killebrew.shoestore.R
 
 class MainActivity : AppCompatActivity() {
 
