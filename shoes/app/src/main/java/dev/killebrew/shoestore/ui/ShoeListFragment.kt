@@ -43,9 +43,11 @@ class ShoeListFragment : Fragment() {
 
         viewModel.shoes.observe(viewLifecycleOwner) { shoeList ->
             run {
+                Log.d("ShoeList", "list changed")
                 val adapter = binding.shoeList.adapter
                 if (adapter is ShoeRecyclerViewAdapter) {
                     adapter.updateShoes(shoeList)
+                    adapter.notifyDataSetChanged()
                 }
             }
         }
@@ -72,5 +74,10 @@ class ShoeListFragment : Fragment() {
             }
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().title = getString(R.string.app_name)
     }
 }

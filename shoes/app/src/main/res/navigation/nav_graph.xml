@@ -55,5 +55,8 @@
             android:name="shoe"
             app:argType="dev.killebrew.shoestore.models.Shoe"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_shoeDetailFragment_to_shoeListFragment"
+            app:destination="@id/shoeListFragment" />
     </fragment>
 </navigation>
