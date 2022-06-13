@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="shoe"
-            type="dev.killebrew.shoestore.models.Shoe" />
+            name="vm"
+            type="dev.killebrew.shoestore.models.ShoeViewModel" />
     </data>
 
     <ScrollView
@@ -39,7 +39,8 @@
                 android:hint="@string/shoe_name_label"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:text="@{shoe.name}"
+                android:text="@{vm.editingShoe.name}"
+                android:saveEnabled="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColorHint="#78909C"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +66,8 @@
                 android:hint="@string/shoe_description_label"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:text="@{shoe.description}"
+                android:text="@{vm.editingShoe.description}"
+                android:saveEnabled="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColorHint="#78909C"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +93,8 @@
                 android:hint="@string/shoe_manufacturer_label"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:text="@{shoe.company}"
+                android:text="@{vm.editingShoe.company}"
+                android:saveEnabled="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColorHint="#78909C"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -117,7 +120,8 @@
                 android:hint="@string/shoe_size_label"
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal"
-                android:text="@{(shoe.size > 0) ? `` + shoe.size : ``}"
+                android:text="@{(vm.editingShoe.size > 0) ? `` + vm.editingShoe.size : ``}"
+                android:saveEnabled="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColorHint="#78909C"
                 app:layout_constraintEnd_toEndOf="parent"

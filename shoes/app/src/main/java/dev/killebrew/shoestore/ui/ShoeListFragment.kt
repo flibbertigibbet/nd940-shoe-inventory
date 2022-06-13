@@ -1,7 +1,6 @@
 package dev.killebrew.shoestore.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -33,9 +32,8 @@ class ShoeListFragment : Fragment() {
             adapter = ShoeRecyclerViewAdapter(viewModel.shoes.value ?: emptyList()
             ) { shoeId ->
                 run {
-                    Log.d("ShoeList", "you clicked on shoe $shoeId")
                     val bundle = Bundle()
-                    bundle.putInt(ARG_SHOE, shoeId)
+                    bundle.putInt(ARG_SHOE_ID, shoeId)
                     findNavController().navigate(R.id.action_shoeListFragment_to_shoeDetailFragment, bundle)
                 }
             }
@@ -43,7 +41,7 @@ class ShoeListFragment : Fragment() {
 
         viewModel.shoes.observe(viewLifecycleOwner) { shoeList ->
             run {
-                Log.d("ShoeList", "list changed")
+                // update shoe list when it changes
                 val adapter = binding.shoeList.adapter
                 if (adapter is ShoeRecyclerViewAdapter) {
                     adapter.updateShoes(shoeList)
@@ -53,7 +51,6 @@ class ShoeListFragment : Fragment() {
         }
 
         binding.addShoeFab.setOnClickListener {
-            Log.d("ShoeList", "you clicked to add a shoe")
             findNavController().navigate(R.id.action_shoeListFragment_to_shoeDetailFragment)
         }
 

@@ -8,15 +8,13 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import dev.killebrew.shoestore.R
 import dev.killebrew.shoestore.databinding.FragmentShoeDetailBinding
 import dev.killebrew.shoestore.models.Shoe
 import dev.killebrew.shoestore.models.ShoeViewModel
-import java.lang.Exception
 
-const val ARG_SHOE = "shoe"
+const val ARG_SHOE_ID = "shoe_id"
 
 /**
  * A simple [Fragment] subclass.
@@ -25,7 +23,6 @@ const val ARG_SHOE = "shoe"
  */
 class ShoeDetailFragment : Fragment() {
     private var shoeId: Int = -1
-    private var shoe: Shoe? = null
     private lateinit var binding: FragmentShoeDetailBinding
 
     companion object {
@@ -40,7 +37,7 @@ class ShoeDetailFragment : Fragment() {
         fun newInstance(shoeOffset: Int) =
             ShoeDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(ARG_SHOE, shoeOffset)
+                    putInt(ARG_SHOE_ID, shoeOffset)
                 }
             }
     }
@@ -48,7 +45,7 @@ class ShoeDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            shoeId = it.getInt(ARG_SHOE, -1)
+            shoeId = it.getInt(ARG_SHOE_ID, -1)
         }
     }
 
@@ -58,8 +55,12 @@ class ShoeDetailFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shoe_detail, container, false)
         val viewModel: ShoeViewModel by activityViewModels()
-        shoe = viewModel.getShoe(shoeId)
-        binding.shoe = shoe
+        viewModel.setEditingShoe(shoeId)
+
+        binding.vm = viewModel
+
+        // ensure current values are saved on configuration change
+        binding.executePendingBindings()
 
         binding.cancelButton.setOnClickListener {
             findNavController().navigate(R.id.action_shoeDetailFragment_to_shoeListFragment)
@@ -72,14 +73,18 @@ class ShoeDetailFragment : Fragment() {
                     description = binding.shoeDescriptionEdit.text.toString(),
                     company = binding.shoeManufacturerEdit.text.toString(),
                     size = binding.shoeSizeEdit.text.toString().toDouble(),
-                    image = shoe?.image
+                    image = viewModel.editingShoe.value?.image
                 )
 
                 viewModel.saveShoe(shoeId, newShoe)
                 findNavController().navigate(R.id.action_shoeDetailFragment_to_shoeListFragment)
 
             } catch (ex: Exception) {
-                val toast = Toast.makeText(context, getString(R.string.save_error_message), Toast.LENGTH_LONG)
+                val toast = Toast.makeText(
+                    context,
+                    getString(R.string.save_error_message),
+                    Toast.LENGTH_LONG
+                )
                 toast.show()
             }
         }
@@ -89,7 +94,7 @@ class ShoeDetailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        requireActivity().title = if (shoe == null)
+        requireActivity().title = if (shoeId < 0)
             getString(R.string.add_shoe_title) else getString(R.string.edit_shoe_title)
     }
 }
