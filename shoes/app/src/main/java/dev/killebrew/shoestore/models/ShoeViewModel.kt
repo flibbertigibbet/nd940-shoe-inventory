@@ -19,4 +19,11 @@ class ShoeViewModel: ViewModel() {
 
     val shoes: LiveData<List<Shoe>>
         get() = _shoes
+
+    private val _newCustomer: MutableLiveData<Boolean> = MutableLiveData(true)
+
+    val newCustomer: LiveData<Boolean>
+        get() = _newCustomer
+
+    fun handleLogin() = _newCustomer.postValue(false)
 }

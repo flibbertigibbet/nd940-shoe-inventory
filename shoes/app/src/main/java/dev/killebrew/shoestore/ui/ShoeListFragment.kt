@@ -2,13 +2,12 @@ package dev.killebrew.shoestore.ui
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.killebrew.shoestore.R
 import dev.killebrew.shoestore.databinding.FragmentShoeListBinding
@@ -53,6 +52,22 @@ class ShoeListFragment : Fragment() {
             Log.d("ShoeList", "you clicked me")
         }
 
+        setHasOptionsMenu(true)
+
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.logout_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.logout_item -> {
+                findNavController().navigate(R.id.action_shoeListFragment_to_loginFragment)
+                true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 }
