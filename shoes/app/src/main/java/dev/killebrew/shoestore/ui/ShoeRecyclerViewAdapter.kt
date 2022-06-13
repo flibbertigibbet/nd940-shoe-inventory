@@ -10,7 +10,8 @@ import dev.killebrew.shoestore.models.Shoe
  * [RecyclerView.Adapter] that can display a [.Shoe].
  */
 class ShoeRecyclerViewAdapter(
-    private var shoes: List<Shoe>
+    private var shoes: List<Shoe>,
+    private val listener: (Shoe) -> Unit
 ) : RecyclerView.Adapter<ShoeRecyclerViewAdapter.ViewHolder>() {
 
     fun updateShoes(newShoes: List<Shoe>) {
@@ -32,7 +33,7 @@ class ShoeRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val shoe = shoes[position]
-        holder.bind(shoe)
+        holder.bind(shoe, listener)
     }
 
     override fun getItemCount(): Int = shoes.size
@@ -43,8 +44,12 @@ class ShoeRecyclerViewAdapter(
 
         private val _binding = binding
 
-        fun bind(shoe: Shoe) {
+        fun bind(shoe: Shoe, listener: (Shoe) -> Unit) {
             _binding.shoe = shoe
+            // When a list item is clicked, call the handler with the clicked shoe
+            _binding.root.setOnClickListener {
+                listener(shoes[adapterPosition])
+            }
             _binding.executePendingBindings()
         }
 

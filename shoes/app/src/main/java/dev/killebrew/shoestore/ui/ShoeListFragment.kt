@@ -1,9 +1,11 @@
 package dev.killebrew.shoestore.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -30,7 +32,12 @@ class ShoeListFragment : Fragment() {
         // Set the adapter
         with(binding.shoeList) {
             layoutManager = LinearLayoutManager(context)
-            adapter = ShoeRecyclerViewAdapter(viewModel.shoes.value ?: emptyList())
+            adapter = ShoeRecyclerViewAdapter(viewModel.shoes.value ?: emptyList()
+            ) { shoe ->
+                run {
+                    Log.d("ShoeList", "you clicked on shoe $shoe")
+                }
+            }
         }
 
         viewModel.shoes.observe(viewLifecycleOwner) { shoeList ->
@@ -40,6 +47,10 @@ class ShoeListFragment : Fragment() {
                     adapter.updateShoes(shoeList)
                 }
             }
+        }
+
+        binding.addShoeFab.setOnClickListener {
+            Log.d("ShoeList", "you clicked me")
         }
 
         return binding.root

@@ -16,4 +16,5 @@
     <string name="instructions_details">Click on a shoe in the list. Something might happen. It will be exciting!</string>
     <string name="go_to_shoe_list_button">Let\'s go!</string>
     <string name="shoe_image_description">Picture of the shoe</string>
+    <string name="add_shoe_button_description">Add shoe</string>
 </resources>
