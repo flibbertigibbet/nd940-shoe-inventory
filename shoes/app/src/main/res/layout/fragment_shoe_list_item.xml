@@ -10,9 +10,9 @@
     </data>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="3"
+        android:weightSum="2"
         android:orientation="horizontal">
 
         <TextView
@@ -23,13 +23,7 @@
             android:layout_margin="@dimen/text_margin"
             android:layout_gravity="start|center_vertical"
             android:text="@{shoe.name}"
-            android:textAppearance="?attr/textAppearanceListItem" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <ImageView
             android:id="@+id/item_image"
