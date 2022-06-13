@@ -43,5 +43,17 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_shoeListFragment_to_shoeDetailFragment"
+            app:destination="@id/shoeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoeDetailFragment"
+        android:name="dev.killebrew.shoestore.ui.ShoeDetailFragment"
+        android:label="ShoeDetailFragment" >
+        <argument
+            android:name="shoe"
+            app:argType="dev.killebrew.shoestore.models.Shoe"
+            app:nullable="true" />
     </fragment>
 </navigation>

@@ -11,7 +11,7 @@ import dev.killebrew.shoestore.models.Shoe
  */
 class ShoeRecyclerViewAdapter(
     private var shoes: List<Shoe>,
-    private val listener: (Shoe) -> Unit
+    private val listener: (Int) -> Unit
 ) : RecyclerView.Adapter<ShoeRecyclerViewAdapter.ViewHolder>() {
 
     fun updateShoes(newShoes: List<Shoe>) {
@@ -44,11 +44,11 @@ class ShoeRecyclerViewAdapter(
 
         private val _binding = binding
 
-        fun bind(shoe: Shoe, listener: (Shoe) -> Unit) {
+        fun bind(shoe: Shoe, listener: (Int) -> Unit) {
             _binding.shoe = shoe
             // When a list item is clicked, call the handler with the clicked shoe
             _binding.root.setOnClickListener {
-                listener(shoes[adapterPosition])
+                listener(adapterPosition)
             }
             _binding.executePendingBindings()
         }

@@ -26,4 +26,7 @@ class ShoeViewModel: ViewModel() {
         get() = _newCustomer
 
     fun handleLogin() = _newCustomer.postValue(false)
+
+    fun getShoe(offset: Int) = if (offset > -1 &&
+        offset < (shoes.value?.size ?: 0)) shoes.value?.get(offset) else null
 }

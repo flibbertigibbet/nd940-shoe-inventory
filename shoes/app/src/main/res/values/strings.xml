@@ -15,7 +15,15 @@
     <string name="instructions_title">How to use this shoe app</string>
     <string name="instructions_details">Click on a shoe in the list. Something might happen. It will be exciting!</string>
     <string name="go_to_shoe_list_button">Let\'s go!</string>
+    <!-- Shoe list -->
     <string name="shoe_image_description">Picture of the shoe</string>
     <string name="add_shoe_button_description">Add shoe</string>
     <string name="logout">Log out</string>
+    <!-- Details -->
+    <string name="shoe_name_label">Shoe name</string>
+    <string name="shoe_description_label">Shoe description</string>
+    <string name="shoe_manufacturer_label">Company</string>
+    <string name="shoe_size_label">Shoe size</string>
+    <string name="add_shoe_title">Add shoe</string>
+    <string name="edit_shoe_title">Edit shoe</string>
 </resources>

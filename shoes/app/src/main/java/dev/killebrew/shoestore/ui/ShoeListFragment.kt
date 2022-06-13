@@ -3,7 +3,6 @@ package dev.killebrew.shoestore.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -32,9 +31,12 @@ class ShoeListFragment : Fragment() {
         with(binding.shoeList) {
             layoutManager = LinearLayoutManager(context)
             adapter = ShoeRecyclerViewAdapter(viewModel.shoes.value ?: emptyList()
-            ) { shoe ->
+            ) { shoeId ->
                 run {
-                    Log.d("ShoeList", "you clicked on shoe $shoe")
+                    Log.d("ShoeList", "you clicked on shoe $shoeId")
+                    val bundle = Bundle()
+                    bundle.putInt(ARG_SHOE, shoeId)
+                    findNavController().navigate(R.id.action_shoeListFragment_to_shoeDetailFragment, bundle)
                 }
             }
         }
@@ -49,7 +51,8 @@ class ShoeListFragment : Fragment() {
         }
 
         binding.addShoeFab.setOnClickListener {
-            Log.d("ShoeList", "you clicked me")
+            Log.d("ShoeList", "you clicked to add a shoe")
+            findNavController().navigate(R.id.action_shoeListFragment_to_shoeDetailFragment)
         }
 
         setHasOptionsMenu(true)

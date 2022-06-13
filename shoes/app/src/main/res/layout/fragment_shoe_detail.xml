@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="shoe"
+            type="dev.killebrew.shoestore.models.Shoe" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/shoe_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.ShoeDetailFragment">
+
+            <TextView
+                android:id="@+id/shoe_name_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@string/shoe_name_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/shoe_name_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:hint="@string/shoe_name_label"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:text="@{shoe.name}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColorHint="#78909C"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shoe_name_label" />
+
+            <TextView
+                android:id="@+id/shoe_description_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@string/shoe_description_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shoe_name_edit" />
+
+            <EditText
+                android:id="@+id/shoe_description_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:hint="@string/shoe_description_label"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:text="@{shoe.description}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColorHint="#78909C"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shoe_description_label" />
+
+            <TextView
+                android:id="@+id/shoe_manufacturer_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@string/shoe_manufacturer_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shoe_description_edit" />
+
+            <EditText
+                android:id="@+id/shoe_manufacturer_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:hint="@string/shoe_manufacturer_label"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:text="@{shoe.company}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColorHint="#78909C"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shoe_manufacturer_label" />
+
+            <TextView
+                android:id="@+id/shoe_size_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@string/shoe_size_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shoe_manufacturer_edit" />
+
+            <EditText
+                android:id="@+id/shoe_size_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:hint="@string/shoe_size_label"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:text="@{(shoe.size > 0) ? `` + shoe.size : ``}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColorHint="#78909C"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shoe_size_label" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
