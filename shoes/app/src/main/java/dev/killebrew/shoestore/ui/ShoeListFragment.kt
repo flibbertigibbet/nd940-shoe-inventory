@@ -1,62 +1,47 @@
 package dev.killebrew.shoestore.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import dev.killebrew.shoestore.R
-import dev.killebrew.shoestore.ui.placeholder.PlaceholderContent
+import dev.killebrew.shoestore.databinding.FragmentShoeListBinding
+import dev.killebrew.shoestore.models.ShoeViewModel
 
 /**
- * A fragment representing a list of Items.
+ * A fragment representing a list of [.models.Shoe].
  */
 class ShoeListFragment : Fragment() {
 
-    private var columnCount = 1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-    }
+    private lateinit var binding: FragmentShoeListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_shoe_list, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shoe_list, container, false)
+
+        val viewModel: ShoeViewModel by activityViewModels()
 
         // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
+        with(binding.shoeList) {
+            layoutManager = LinearLayoutManager(context)
+            adapter = ShoeRecyclerViewAdapter(viewModel.shoes.value ?: emptyList())
+        }
+
+        viewModel.shoes.observe(viewLifecycleOwner) { shoeList ->
+            run {
+                val adapter = binding.shoeList.adapter
+                if (adapter is ShoeRecyclerViewAdapter) {
+                    adapter.updateShoes(shoeList)
                 }
-                adapter = ShoeRecyclerViewAdapter(PlaceholderContent.ITEMS)
             }
         }
-        return view
-    }
 
-    companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            ShoeListFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
+        return binding.root
     }
 }

@@ -16,8 +16,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val shoeViewModel: ShoeViewModel by viewModels()
-
         setSupportActionBar(binding.toolbar)
     }
 }

@@ -2,22 +2,26 @@ package dev.killebrew.shoestore.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import dev.killebrew.shoestore.databinding.FragmentShoesBinding
-import dev.killebrew.shoestore.ui.placeholder.PlaceholderContent.PlaceholderItem
+import dev.killebrew.shoestore.databinding.FragmentShoeListItemBinding
+import dev.killebrew.shoestore.models.Shoe
 
 /**
  * [RecyclerView.Adapter] that can display a [.Shoe].
  */
 class ShoeRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>
+    private var shoes: List<Shoe>
 ) : RecyclerView.Adapter<ShoeRecyclerViewAdapter.ViewHolder>() {
+
+    fun updateShoes(newShoes: List<Shoe>) {
+        shoes = newShoes
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
-            FragmentShoesBinding.inflate(
+            FragmentShoeListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -27,21 +31,25 @@ class ShoeRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        val shoe = shoes[position]
+        holder.bind(shoe)
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = shoes.size
 
 
-    inner class ViewHolder(binding: FragmentShoesBinding) :
+    inner class ViewHolder(binding: FragmentShoeListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        val contentView: TextView = binding.content
+
+        private val _binding = binding
+
+        fun bind(shoe: Shoe) {
+            _binding.shoe = shoe
+            _binding.executePendingBindings()
+        }
 
         override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+            return super.toString() + " '" + _binding.itemName.text + "'"
         }
     }
 }
