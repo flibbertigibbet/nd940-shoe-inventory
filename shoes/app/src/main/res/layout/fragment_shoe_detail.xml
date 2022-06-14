@@ -11,9 +11,11 @@
     </data>
 
     <ScrollView
+        android:id="@+id/detail_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Constraint layout for horizontally and vertically aligned components -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/shoe_details"
             android:layout_width="match_parent"

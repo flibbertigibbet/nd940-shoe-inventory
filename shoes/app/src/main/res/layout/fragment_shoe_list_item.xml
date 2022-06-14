@@ -11,6 +11,7 @@
         <import type="dev.killebrew.shoestore.R" />
     </data>
 
+    <!-- linear layout for simple two view layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

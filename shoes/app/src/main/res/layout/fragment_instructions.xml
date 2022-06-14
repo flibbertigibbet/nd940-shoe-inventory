@@ -3,11 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout3"
+    <!-- linear layout for simple layout with three vertically stacked children -->
+    <LinearLayout
+        android:id="@+id/instructions_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.InstructionsFragment">
+        tools:context=".ui.InstructionsFragment"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/instructions_title"
@@ -16,24 +19,18 @@
             android:layout_marginTop="32dp"
             android:text="@string/instructions_title"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
         <TextView
             android:id="@+id/instructions_details"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:text="@string/instructions_details"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/instructions_title" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <Button
             android:id="@+id/go_to_shoe_list_button"
@@ -42,10 +39,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/go_to_shoe_list_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/instructions_details" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="@string/go_to_shoe_list_button" />
+    </LinearLayout>
 </layout>
