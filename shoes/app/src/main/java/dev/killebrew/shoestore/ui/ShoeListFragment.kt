@@ -6,9 +6,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import dev.killebrew.shoestore.R
 import dev.killebrew.shoestore.databinding.FragmentShoeListBinding
+import dev.killebrew.shoestore.databinding.FragmentShoeListItemBinding
+import dev.killebrew.shoestore.models.Shoe
 import dev.killebrew.shoestore.models.ShoeViewModel
 
 /**
@@ -26,27 +27,10 @@ class ShoeListFragment : Fragment() {
 
         val viewModel: ShoeViewModel by activityViewModels()
 
-        // Set the adapter
-        with(binding.shoeList) {
-            layoutManager = LinearLayoutManager(context)
-            adapter = ShoeRecyclerViewAdapter(viewModel.shoes.value ?: emptyList()
-            ) { shoeId ->
-                run {
-                    val bundle = Bundle()
-                    bundle.putInt(ARG_SHOE_ID, shoeId)
-                    findNavController().navigate(R.id.action_shoeListFragment_to_shoeDetailFragment, bundle)
-                }
-            }
-        }
-
+        populateShoeList(viewModel.shoes.value ?: emptyList())
         viewModel.shoes.observe(viewLifecycleOwner) { shoeList ->
             run {
-                // update shoe list when it changes
-                val adapter = binding.shoeList.adapter
-                if (adapter is ShoeRecyclerViewAdapter) {
-                    adapter.updateShoes(shoeList)
-                    adapter.notifyDataSetChanged()
-                }
+                populateShoeList(shoeList)
             }
         }
 
@@ -76,5 +60,29 @@ class ShoeListFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         requireActivity().title = getString(R.string.app_name)
+    }
+
+    private fun populateShoeList(shoes: List<Shoe>) {
+        // clear list first
+        binding.shoeList.removeAllViews()
+
+        for (i in shoes.indices) {
+            val shoeBinding = FragmentShoeListItemBinding.inflate(
+                LayoutInflater.from(context),
+                binding.shoeList,
+                false
+            )
+
+            shoeBinding.shoe = shoes[i]
+            val shoeItemView = shoeBinding.root
+            binding.shoeList.addView(shoeItemView)
+            shoeBinding.executePendingBindings()
+
+            shoeItemView.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putInt(ARG_SHOE_ID, i)
+                findNavController().navigate(R.id.action_shoeListFragment_to_shoeDetailFragment, bundle)
+            }
+        }
     }
 }

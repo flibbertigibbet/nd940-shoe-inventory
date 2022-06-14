@@ -7,16 +7,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/shoe_list"
-        android:name="dev.killebrew.shoestore.ui.ShoeListFragment"
+    <ScrollView
+        android:id="@+id/shoe_scroll"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layoutManager="LinearLayoutManager"
-        tools:context=".ui.ShoeListFragment"
-        tools:listitem="@layout/fragment_shoe_list_item" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/shoe_list"
+            android:name="dev.killebrew.shoestore.ui.ShoeListFragment"
+            android:layout_margin="@dimen/text_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            android:baselineAligned="false"
+            tools:context=".ui.ShoeListFragment"
+            tools:listitem="@layout/fragment_shoe_list_item"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical" />
+
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_shoe_fab"
