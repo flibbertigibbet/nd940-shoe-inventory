@@ -27,5 +27,5 @@
     <string name="add_shoe_title">Add shoe</string>
     <string name="edit_shoe_title">Edit shoe</string>
     <string name="save">Save</string>
-    <string name="save_error_message">Error saving shoe. Please enter all details.</string>
+    <string name="save_error_message">Error saving shoe. Please enter shoe name.</string>
 </resources>

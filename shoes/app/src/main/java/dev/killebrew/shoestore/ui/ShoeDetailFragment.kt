@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dev.killebrew.shoestore.R
 import dev.killebrew.shoestore.databinding.FragmentShoeDetailBinding
-import dev.killebrew.shoestore.models.Shoe
 import dev.killebrew.shoestore.models.ShoeViewModel
 
 const val ARG_SHOE_ID = "shoe_id"
@@ -58,6 +57,7 @@ class ShoeDetailFragment : Fragment() {
         viewModel.setEditingShoe(shoeId)
 
         binding.shoe = viewModel.editingShoe.value
+        binding.lifecycleOwner = viewLifecycleOwner
 
         // ensure current values are saved on configuration change
         binding.executePendingBindings()
@@ -68,24 +68,14 @@ class ShoeDetailFragment : Fragment() {
 
         binding.saveButton.setOnClickListener {
             try {
-                val newShoe = Shoe(
-                    name = binding.shoeNameEdit.text.toString(),
-                    description = binding.shoeDescriptionEdit.text.toString(),
-                    company = binding.shoeManufacturerEdit.text.toString(),
-                    size = binding.shoeSizeEdit.text.toString().toDouble(),
-                    image = viewModel.editingShoe.value?.image
-                )
-
-                viewModel.saveShoe(shoeId, newShoe)
-                findNavController().navigate(R.id.action_shoeDetailFragment_to_shoeListFragment)
-
+                if (isValid()) {
+                    viewModel.saveShoe(shoeId, binding.shoe!!)
+                    findNavController().navigate(R.id.action_shoeDetailFragment_to_shoeListFragment)
+                } else {
+                    handleSaveFailure()
+                }
             } catch (ex: Exception) {
-                val toast = Toast.makeText(
-                    context,
-                    getString(R.string.save_error_message),
-                    Toast.LENGTH_LONG
-                )
-                toast.show()
+                handleSaveFailure()
             }
         }
 
@@ -96,5 +86,18 @@ class ShoeDetailFragment : Fragment() {
         super.onResume()
         requireActivity().title = if (shoeId < 0)
             getString(R.string.add_shoe_title) else getString(R.string.edit_shoe_title)
+    }
+
+    private fun isValid(): Boolean {
+        return binding.shoe != null && !binding.shoe?.name.isNullOrBlank()
+    }
+
+    private fun handleSaveFailure() {
+        val toast = Toast.makeText(
+            context,
+            getString(R.string.save_error_message),
+            Toast.LENGTH_LONG
+        )
+        toast.show()
     }
 }

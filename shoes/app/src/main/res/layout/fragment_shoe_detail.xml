@@ -8,6 +8,8 @@
         <variable
             name="shoe"
             type="dev.killebrew.shoestore.models.Shoe" />
+
+        <import type="dev.killebrew.shoestore.Converters" />
     </data>
 
     <ScrollView
@@ -41,7 +43,7 @@
                 android:hint="@string/shoe_name_label"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:text="@{shoe.name}"
+                android:text="@={shoe.name}"
                 android:saveEnabled="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColorHint="#78909C"
@@ -68,7 +70,7 @@
                 android:hint="@string/shoe_description_label"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:text="@{shoe.description}"
+                android:text="@={shoe.description}"
                 android:saveEnabled="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColorHint="#78909C"
@@ -95,7 +97,7 @@
                 android:hint="@string/shoe_manufacturer_label"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:text="@{shoe.company}"
+                android:text="@={shoe.company}"
                 android:saveEnabled="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColorHint="#78909C"
@@ -122,7 +124,7 @@
                 android:hint="@string/shoe_size_label"
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal"
-                android:text="@{(shoe.size > 0) ? `` + shoe.size : ``}"
+                android:text="@={Converters.doubleToString(shoe.size)}"
                 android:saveEnabled="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColorHint="#78909C"

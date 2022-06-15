@@ -29,7 +29,7 @@ class ShoeViewModel: ViewModel() {
     val newCustomer: LiveData<Boolean>
         get() = _newCustomer
 
-    private val _editingShoe: MutableLiveData<Shoe> = MutableLiveData()
+    private val _editingShoe: MutableLiveData<Shoe> = MutableLiveData(Shoe())
 
     val editingShoe: LiveData<Shoe>
         get() = _editingShoe
@@ -37,7 +37,7 @@ class ShoeViewModel: ViewModel() {
     fun handleLogin() = _newCustomer.postValue(false)
 
     fun setEditingShoe(offset: Int) {
-        _editingShoe.value = getShoe(offset)
+        _editingShoe.value = getShoe(offset) ?: Shoe()
     }
 
     fun saveShoe(offset: Int, shoe: Shoe) {
@@ -60,5 +60,5 @@ class ShoeViewModel: ViewModel() {
 
     private fun getShoe(offset: Int) = if (offset > -1 &&
         offset < ((shoes.value?.size ?: 0)
-                )) shoes.value?.get(offset) else null
+                )) shoes.value?.get(offset) else Shoe()
 }
