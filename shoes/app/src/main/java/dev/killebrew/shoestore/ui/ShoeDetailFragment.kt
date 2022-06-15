@@ -57,7 +57,7 @@ class ShoeDetailFragment : Fragment() {
         val viewModel: ShoeViewModel by activityViewModels()
         viewModel.setEditingShoe(shoeId)
 
-        binding.vm = viewModel
+        binding.shoe = viewModel.editingShoe.value
 
         // ensure current values are saved on configuration change
         binding.executePendingBindings()
